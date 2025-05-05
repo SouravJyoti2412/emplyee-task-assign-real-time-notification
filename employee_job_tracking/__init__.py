@@ -1,0 +1,1 @@
+default_app_config = 'employee_job_tracking.apps.EmployeeJobTrackingConfig'

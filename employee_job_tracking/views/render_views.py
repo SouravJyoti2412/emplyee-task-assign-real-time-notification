@@ -6,3 +6,5 @@ def notification(request):
 
 def notification2(request):
     return render(request, 'notification2.html')
+
+

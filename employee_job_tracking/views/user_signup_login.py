@@ -1,4 +1,4 @@
-from rest_framework.views import APIView
+from rest_framework.views import APIView 
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.hashers import make_password, check_password
-
-class UserSignupLoginAPIView(APIView):
+from app.helper import user_validation
+class UserSignupAPIView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):
         email = request.data.get('email')
@@ -23,7 +23,10 @@ class UserSignupLoginAPIView(APIView):
         User.objects.create(email=email, password=encoded_password , full_name=full_name, role=role)
         return Response({"message": "User created successfully."}, status=status.HTTP_201_CREATED)
 
-    def login(self, request):
+
+class UserLoginAPIView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
         if not all([email, password]):
@@ -36,10 +39,27 @@ class UserSignupLoginAPIView(APIView):
                 return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
             if check_password(password, user_obj.password):
-                refresh = RefreshToken()
+                refresh = RefreshToken.for_user(user_obj)
+                # print(refresh)
                 refresh.payload['user_email'] = user_obj.email
                 refresh.payload['user_id'] = user_obj.id 
-                User.objects.filter(phone_number = email).update(token = [{"accessToken": f"{refresh.access_token}" , "refreshToken":f"{refresh}"}])
+                User.objects.filter(email = email).update(token = [{"accessToken": f"{refresh.access_token}" , "refreshToken":f"{refresh}"}])
                 return Response({"message":"user auth success",'access': str(refresh.access_token), 'refresh': str(refresh) , "status":"200"}, status.HTTP_200_OK)
             else:
                 return Response({"error": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+class LoginRedirectionApi(APIView):
+    def post(self , request):
+        token = request.data.get("token")
+        # refreshToken =  request.data.get("RefreshToken")
+        page_url =  request.data.get("page_url")
+        validation = user_validation(token)
+        if validation["message"] == "User present":
+            if page_url == "/chat/login/":
+               return Response({"page_url": "/chat/index/"}, status=status.HTTP_200_OK) 
+            return Response({"page_url": f"{page_url}"}, status=status.HTTP_200_OK)
+        else:
+             return Response({"page_url": "/chat/login/"}, status=status.HTTP_401_UNAUTHORIZED)
+

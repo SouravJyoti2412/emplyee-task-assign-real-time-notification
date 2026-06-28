@@ -1,0 +1,349 @@
+
+
+
+{% extends "extend/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="tyn-content tyn-content-full-height tyn-chat">
+    <div class="tyn-aside tyn-aside-base">
+        <!-- You can add sidebar contacts here if needed -->
+    </div>
+
+    <div class="tyn-main tyn-chat-content" id="tynMain">
+        <div class="tyn-chat-head">
+            <!-- Chat Header with User Info -->
+            <div class="tyn-media-group">
+                <div class="tyn-media tyn-size-lg d-none d-sm-inline-flex">
+                    <img src="/static/images/avatar/1.jpg" alt="">
+                </div>
+                <div class="tyn-media-col">
+                    <div class="tyn-media-row">
+                        <h6 class="name">Chat with {{ receiver.first_name }}</h6>
+                    </div>
+                    <div class="tyn-media-row has-dot-sap">
+                        <span class="meta">Active now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Body -->
+        <div class="tyn-chat-body js-scroll-to-end" id="tynChatBody">
+            <!-- Messages will be dynamically inserted here -->
+        </div>
+
+        <!-- Chat Input -->
+               <div class="tyn-chat-form">
+            <div class="tyn-chat-form-insert">
+                <ul class="tyn-list-inline gap gap-3">
+                    <li class="dropup">
+                        <button class="btn btn-icon btn-light btn-md btn-pill" data-bs-toggle="dropdown"
+                            data-bs-offset="0,10">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                            </svg><!-- plus-lg -->
+                        </button>
+                        <div class="dropdown-menu">
+                            <ul class="tyn-list-links">
+                                <li><a href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-person-video2" viewBox="0 0 16 16">
+                                            <path d="M10 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                            <path
+                                                d="M2 1a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zM1 3a1 1 0 0 1 1-1h2v2H1zm4 10V2h9a1 1 0 0 1 1 1v9c0 .285-.12.543-.31.725C14.15 11.494 12.822 10 10 10c-3.037 0-4.345 1.73-4.798 3zm-4-2h3v2H2a1 1 0 0 1-1-1zm3-1H1V8h3zm0-3H1V5h3z" />
+                                        </svg><!-- person-video2 -->
+                                        <span>New Group</span></a></li>
+                                <li><a href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+                                            <path
+                                                d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3" />
+                                        </svg><!-- mic -->
+                                        <span>Voice Clip</span></a></li>
+                            </ul>
+                        </div>
+                    </li><!-- li -->
+                    <li class="d-none d-sm-block"><button class="btn btn-icon btn-light btn-md btn-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-card-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path
+                                    d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                            </svg><!-- card-image -->
+                        </button></li><!-- li -->
+                    <li class="d-none d-sm-block"><button class="btn btn-icon btn-light btn-md btn-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8" />
+                            </svg><!-- emoji-smile-fill -->
+                        </button></li><!-- li -->
+                </ul>
+            </div><!-- .tyn-chat-form-insert -->
+            <div class="tyn-chat-form-enter">
+                <div class="tyn-chat-form-input" id="tynChatInput" contenteditable></div>
+                <ul class="tyn-list-inline me-n2 my-1">
+                    <li><button class="btn btn-icon btn-white btn-md btn-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-mic-fill" viewBox="0 0 16 16">
+                                <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z" />
+                                <path
+                                    d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+                            </svg><!-- mic-fill -->
+                        </button></li>
+                    <li><button class="btn btn-icon btn-white btn-md btn-pill" id="tynChatSend">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-send-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z" />
+                            </svg><!-- send-fill -->
+                        </button></li>
+                </ul>
+            </div><!-- .tyn-chat-form-enter -->
+        </div><!-- .tyn-chat-form -->
+    </div>
+</div>
+
+<!-- HIDDEN INPUTS TO PASS DATA TO JS -->
+<input type="hidden" id="roomName" value="{{ room_name }}">
+<input type="hidden" id="receiverId" value="{{ receiver.id }}">
+<input type="hidden" id="currentUserId" value="17">
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    const roomName = document.getElementById('roomName').value;
+    const receiverId = document.getElementById('receiverId').value;
+    const currentUserId = document.getElementById('currentUserId').value;
+
+    const chatBody = document.getElementById('tynChatBody');
+    const input = document.getElementById('tynChatInput');
+    const sendButton = document.getElementById('tynChatSend');
+
+    // 1. Fetch Old Messages
+    async function fetchOldMessages() {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/user-messege/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    sender_id: currentUserId,
+                    reciver_id: receiverId
+                })
+            });
+
+            const data = await response.json();
+            const messages = data.massege;
+            messages.reverse(); // Display oldest first
+
+            messages.forEach(msg => {
+                const newMessage = document.createElement('div');
+                const direction = msg.sender === parseInt(currentUserId) ? 'outgoing' : 'incoming';
+                const content = msg.content;
+
+                newMessage.innerHTML = `
+                        <div class="tyn-chat-body js-scroll-to-end" id="tynChatBody">
+                            <div class="tyn-reply" id="tynReply">
+                                <div class="tyn-reply-item ${direction}">
+                                    <div class="tyn-reply-group">
+                                        <div class="tyn-reply-bubble">
+                                            <div class="tyn-reply-text">${content}
+                                            </div><!-- tyn-reply-text -->
+                                            <ul class="tyn-reply-tools">
+                                                <li>
+                                                    <button class="btn btn-icon btn-sm btn-transparent btn-pill">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8" />
+                                                        </svg><!-- emoji-smile-fill -->
+                                                    </button>
+                                                </li><!-- li -->
+                                                <li class="dropup-center">
+                                                    <button class="btn btn-icon btn-sm btn-transparent btn-pill"
+                                                        data-bs-toggle="dropdown">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+                                                        </svg><!-- three-dots -->
+                                                    </button><!-- toggle -->
+                                                    <div class="dropdown-menu dropdown-menu-xxs">
+                                                        <ul class="tyn-list-links">
+                                                            <li>
+                                                                <a href="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                        fill="currentColor" class="bi bi-pencil-square"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                                                    </svg><!-- pencil-square -->
+                                                                    <span>Edit</span>
+                                                                </a>
+                                                            </li><!-- li -->
+                                                            <li>
+                                                                <a href="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                        fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                                        <path
+                                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                                    </svg><!-- trash -->
+                                                                    <span>Delete</span>
+                                                                </a>
+                                                            </li><!-- li -->
+                                                        </ul><!-- .tyn-list-links -->
+                                                    </div><!-- .dropdown-menu -->
+                                                </li><!-- li -->
+                                            </ul><!-- .tyn-reply-tools -->
+                                        </div><!-- .tyn-reply-bubble -->
+                                    </div><!-- .tyn-reply-group -->
+                                </div><!-- .tyn-reply-item -->
+                            </div>
+                        </div>
+                `;
+                chatBody.appendChild(newMessage);
+            });
+
+            chatBody.scrollTop = chatBody.scrollHeight;
+        } catch (error) {
+            console.error('Failed to fetch messages:', error);
+        }
+    }
+
+    // 2. Setup WebSocket
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.hostname + ':8001' + '/ws/chat/' + roomName + '/'
+    );
+    
+    sendButton.onclick = function (e) {
+        const message = input.innerText.trim();
+        if (message.length > 0) {
+            chatSocket.send(JSON.stringify({
+                'message_type': 'text',
+                'content': message,
+                'receiver_id': receiverId
+            }));
+            input.innerText = '';
+        }
+    };
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        const newMessage = document.createElement('div');
+
+        const direction = data.sender_id == currentUserId ? 'outgoing' : 'incoming';
+
+        newMessage.innerHTML = `
+                        <div class="tyn-chat-body js-scroll-to-end" id="tynChatBody">
+                            <div class="tyn-reply" id="tynReply">
+                                <div class="tyn-reply-item ${direction}">
+                                    <div class="tyn-reply-group">
+                                        <div class="tyn-reply-bubble">
+                                            <div class="tyn-reply-text">${data.message}
+                                            </div><!-- tyn-reply-text -->
+                                            <ul class="tyn-reply-tools">
+                                                <li>
+                                                    <button class="btn btn-icon btn-sm btn-transparent btn-pill">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8" />
+                                                        </svg><!-- emoji-smile-fill -->
+                                                    </button>
+                                                </li><!-- li -->
+                                                <li class="dropup-center">
+                                                    <button class="btn btn-icon btn-sm btn-transparent btn-pill"
+                                                        data-bs-toggle="dropdown">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+                                                        </svg><!-- three-dots -->
+                                                    </button><!-- toggle -->
+                                                    <div class="dropdown-menu dropdown-menu-xxs">
+                                                        <ul class="tyn-list-links">
+                                                            <li>
+                                                                <a href="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                        fill="currentColor" class="bi bi-pencil-square"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                                                    </svg><!-- pencil-square -->
+                                                                    <span>Edit</span>
+                                                                </a>
+                                                            </li><!-- li -->
+                                                            <li>
+                                                                <a href="#">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                        fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                        <path
+                                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                                        <path
+                                                                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                                    </svg><!-- trash -->
+                                                                    <span>Delete</span>
+                                                                </a>
+                                                            </li><!-- li -->
+                                                        </ul><!-- .tyn-list-links -->
+                                                    </div><!-- .dropdown-menu -->
+                                                </li><!-- li -->
+                                            </ul><!-- .tyn-reply-tools -->
+                                        </div><!-- .tyn-reply-bubble -->
+                                    </div><!-- .tyn-reply-group -->
+                                </div><!-- .tyn-reply-item -->
+                            </div>
+                        </div>
+        `;
+
+        chatBody.appendChild(newMessage);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    };
+
+    chatSocket.onopen = function () {
+        console.log('WebSocket connection established.');
+    };
+
+    chatSocket.onerror = function (error) {
+        console.error('WebSocket error:', error);
+    };
+
+    chatSocket.onclose = function () {
+        console.log('WebSocket connection closed.');
+    };
+
+    // Utility function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Call fetch on page load
+    fetchOldMessages();
+</script>
+{% endblock scripts %}

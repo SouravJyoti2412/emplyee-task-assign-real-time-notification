@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Auth2 Login Example</title>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <meta name="google-signin-client_id" content="{{ GOOGLE_CLIENT_ID }}">
+</head>
+<body>
+  <h1>Google Sign-In</h1>
+  <a href="http://127.0.0.1:8000/accounts/google/login/">Login with Google</a>
+
+  <script>
+    // Initialize Google Auth
+    gapi.load('auth2', function () {
+      gapi.auth2.init({
+        client_id: '{{ GOOGLE_CLIENT_ID }}',
+      });
+    });
+
+    document.getElementById('login-button').addEventListener('click', function () {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signIn().then(function (googleUser) {
+        var id_token = googleUser.getAuthResponse().id_token;
+
+        fetch('/chat/google-login/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCSRFToken()
+          },
+          body: `idtoken=${encodeURIComponent(id_token)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log("Server response:", data);
+          if (data.status === "success") {
+            alert("Login successful! Welcome " + data.user.name);
+            window.location.href = "/"; // Redirect after login
+          } else {
+            alert("Login failed: " + data.message);
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+      });
+    });
+
+    function getCSRFToken() {
+      let name = 'csrftoken';
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.startsWith(name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  </script>
+</body>
+</html>

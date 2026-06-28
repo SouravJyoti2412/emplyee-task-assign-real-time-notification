@@ -1,5 +1,3 @@
-
-
 ## Redis Application run 
 celery -A app worker --pool=solo --loglevel=info for windows
 
